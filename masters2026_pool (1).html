@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 East Cobb Masters Pick 4</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #1a4a2e;
+    --green-mid: #2d6e47;
+    --green-light: #4a9e6b;
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --cream: #f8f4ed;
+    --cream-dark: #efe9dc;
+    --white: #ffffff;
+    --text-dark: #1a1a18;
+    --text-mid: #4a4a44;
+    --text-light: #7a7a72;
+    --border: rgba(26,74,46,0.14);
+    --shadow: 0 2px 16px rgba(26,74,46,0.09);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--text-dark); min-height: 100vh; }
+
+  .site-header {
+    background: var(--green);
+    padding: 1.75rem 1.5rem 1.1rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .site-header::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(45deg, transparent, transparent 50px, rgba(255,255,255,0.018) 50px, rgba(255,255,255,0.018) 100px);
+  }
+  .header-inner { position: relative; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .masters-logo { width: 88px; height: auto; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.4)); }
+  .site-header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.25rem, 3.5vw, 2rem);
+    font-weight: 700;
+    color: var(--gold-light);
+    letter-spacing: 0.02em;
+    line-height: 1.25;
+    max-width: 640px;
+  }
+  .site-header .tagline {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: clamp(0.8rem, 2vw, 1rem);
+    color: rgba(232,201,122,0.72);
+    letter-spacing: 0.04em;
+  }
+  .site-header .subtitle { font-size: 11px; color: rgba(248,244,237,0.5); letter-spacing: 0.1em; text-transform: uppercase; }
+  .live-pill {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.07em;
+    padding: 3px 11px; border-radius: 20px; margin-top: 2px;
+  }
+  .live-pill.live { background: rgba(74,158,107,0.22); color: #7ed4a0; border: 1px solid rgba(74,158,107,0.38); }
+  .live-pill.manual { background: rgba(201,168,76,0.18); color: var(--gold-light); border: 1px solid rgba(201,168,76,0.3); }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; animation: pulse 1.5s ease-in-out infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.25} }
+
+  .tabs { display: flex; background: var(--green); border-top: 1px solid rgba(255,255,255,0.07); padding: 0 1rem; overflow-x: auto; }
+  .tab-btn {
+    font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500;
+    padding: 10px 16px; background: none; border: none; border-bottom: 2px solid transparent;
+    color: rgba(248,244,237,0.5); cursor: pointer; white-space: nowrap;
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .tab-btn:hover { color: rgba(248,244,237,0.82); }
+  .tab-btn.active { color: var(--gold-light); border-bottom-color: var(--gold); }
+
+  .main { max-width: 980px; margin: 0 auto; padding: 1.5rem 1rem 3rem; }
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  .status-bar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-bottom: 1.25rem; }
+  .status-text { font-size: 12px; color: var(--text-light); }
+  .refresh-btn {
+    font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500;
+    padding: 5px 14px; border-radius: 20px; border: 1px solid var(--border);
+    background: var(--white); color: var(--green); cursor: pointer; transition: background 0.15s;
+  }
+  .refresh-btn:hover { background: var(--cream-dark); }
+
+  /* Group headers */
+  .group-label {
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 14px;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+  }
+  .group-leaders .group-label { background: linear-gradient(90deg, rgba(201,168,76,0.18), transparent); color: var(--gold); border-left: 3px solid var(--gold); }
+  .group-chase1 .group-label { background: linear-gradient(90deg, rgba(74,158,107,0.12), transparent); color: var(--green-mid); border-left: 3px solid var(--green-light); }
+  .group-chase2 .group-label { background: linear-gradient(90deg, rgba(74,100,158,0.1), transparent); color: #4a5e8a; border-left: 3px solid #7a9acf; }
+  .group-pack .group-label { background: linear-gradient(90deg, rgba(120,120,112,0.1), transparent); color: var(--text-light); border-left: 3px solid #b0afa8; }
+
+  /* Card + table */
+  .card { background: var(--white); border-radius: 12px; border: 1px solid var(--border); box-shadow: var(--shadow); overflow: hidden; margin-bottom: 1.25rem; }
+  table { width: 100%; border-collapse: collapse; }
+  thead tr { background: var(--cream); }
+  th { font-size: 11px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--text-light); padding: 9px 14px; text-align: left; border-bottom: 1px solid var(--border); }
+  th.r { text-align: right; }
+  td { padding: 10px 14px; border-bottom: 1px solid rgba(26,74,46,0.05); font-size: 13px; vertical-align: middle; }
+  td.r { text-align: right; font-variant-numeric: tabular-nums; }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr:hover td { background: rgba(248,244,237,0.55); }
+
+  .rank-num { font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 600; width: 32px; }
+  .rank-1 { color: #c9a84c; }
+  .rank-2 { color: #8a8a84; }
+  .rank-3 { color: #a0622a; }
+  .player-name { font-weight: 600; font-size: 14px; }
+
+  .chip {
+    display: inline-flex; align-items: center; gap: 3px;
+    font-size: 11px; padding: 2px 7px; border-radius: 4px; margin: 2px; white-space: nowrap;
+  }
+  .chip-pending { background: #f0ede6; color: var(--text-light); border: 1px solid rgba(0,0,0,0.06); }
+  .chip-active { background: #e6f4ec; color: #1a6e3a; border: 1px solid rgba(26,110,58,0.18); }
+  .chip-mc { background: #fdecea; color: #b83232; border: 1px solid rgba(184,50,50,0.18); text-decoration: line-through; opacity: 0.8; }
+
+  .pts-val { font-size: 16px; font-weight: 600; color: var(--green); }
+  .bc-val { font-size: 13px; color: var(--text-light); }
+
+  .under { color: #1a6e3a; font-weight: 500; }
+  .over  { color: #b83232; }
+  .even  { color: var(--text-dark); font-weight: 500; }
+
+  .pos-badge { display: inline-block; font-size: 11px; padding: 2px 6px; border-radius: 4px; background: #eef6f1; color: var(--green); font-weight: 500; border: 1px solid rgba(26,74,46,0.15); }
+  .mc-badge { display: inline-block; font-size: 10px; padding: 1px 5px; border-radius: 3px; background: #fdecea; color: #b83232; font-weight: 600; }
+
+  /* Payout card */
+  .payout-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; margin-bottom: 1.5rem; }
+  .payout-card {
+    background: var(--white); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.1rem 1.25rem; display: flex; align-items: center; justify-content: space-between;
+  }
+  .payout-card.first { border-color: rgba(201,168,76,0.5); background: linear-gradient(135deg, #fffdf5, #fff8e6); }
+  .payout-card.second { border-color: rgba(140,140,130,0.4); background: linear-gradient(135deg, #fafafa, #f2f2f0); }
+  .payout-pos { font-size: 13px; font-weight: 500; color: var(--text-mid); }
+  .payout-amt { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; }
+  .payout-card.first .payout-amt { color: #b8860b; }
+  .payout-card.second .payout-amt { color: #7a7a74; }
+  .trophy { font-size: 20px; margin-right: 4px; }
+
+  /* Scoring rules */
+  .rules-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 10px; }
+  .rule-card { display: flex; align-items: center; justify-content: space-between; background: var(--white); border: 1px solid var(--border); border-radius: 8px; padding: 10px 16px; }
+  .rule-pos { font-size: 13px; font-weight: 500; color: var(--text-mid); }
+  .rule-pts { font-size: 18px; font-weight: 700; font-family: 'Playfair Display', serif; color: var(--green); }
+
+  /* Manual entry */
+  .manual-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 8px; margin-bottom: 1rem; }
+  .manual-row { display: flex; align-items: center; gap: 8px; background: var(--white); border: 1px solid var(--border); border-radius: 8px; padding: 7px 10px; }
+  .manual-row label { font-size: 12px; flex: 1; color: var(--text-mid); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .manual-row input[type=number] { width: 58px; font-family: 'DM Sans', sans-serif; font-size: 13px; padding: 3px 6px; border: 1px solid var(--border); border-radius: 5px; background: var(--cream); color: var(--text-dark); text-align: center; }
+  .manual-row select { font-family: 'DM Sans', sans-serif; font-size: 11px; padding: 3px 4px; border: 1px solid var(--border); border-radius: 5px; background: var(--cream); color: var(--text-dark); }
+  .apply-btn { font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; padding: 9px 24px; border-radius: 8px; border: none; background: var(--green); color: var(--gold-light); cursor: pointer; transition: background 0.15s; letter-spacing: 0.03em; }
+  .apply-btn:hover { background: var(--green-mid); }
+
+  .section-title { font-family: 'Playfair Display', serif; font-size: 16px; color: var(--green); margin-bottom: 0.75rem; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+  .empty { text-align: center; padding: 2rem; color: var(--text-light); font-size: 13px; }
+  footer { text-align: center; font-size: 11px; color: var(--text-light); padding: 1.5rem 1rem; border-top: 1px solid var(--border); margin-top: 1.5rem; font-style: italic; }
+
+  @media (max-width: 600px) {
+    th, td { padding: 7px 9px; }
+    .tabs { padding: 0 0.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <img class="masters-logo" src="data:image/png;base64,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" alt="Masters Logo">
+    <h1>2026 East Cobb Masters Pick 4</h1>
+    <div class="tagline">A Tradition Like No Other</div>
+    <div class="subtitle">Augusta National &nbsp;·&nbsp; April 2026</div>
+    <span class="live-pill manual" id="live-pill"><span class="dot"></span><span id="pill-text">LOADING</span></span>
+  </div>
+</header>
+
+<nav class="tabs">
+  <button class="tab-btn active" onclick="showTab('standings',this)">Standings</button>
+  <button class="tab-btn" onclick="showTab('golfers',this)">Golfer Scores</button>
+  <button class="tab-btn" onclick="showTab('payouts',this)">Payouts</button>
+  <button class="tab-btn" onclick="showTab('manual',this)">Manual Entry</button>
+  <button class="tab-btn" onclick="showTab('rules',this)">Scoring Rules</button>
+</nav>
+
+<main class="main">
+
+  <!-- STANDINGS -->
+  <div id="tab-standings" class="panel active">
+    <div class="status-bar">
+      <span class="status-text" id="status-text">Fetching live leaderboard…</span>
+      <button class="refresh-btn" onclick="loadLive()">↻ Refresh</button>
+    </div>
+    <div id="standings-groups"></div>
+  </div>
+
+  <!-- GOLFER SCORES -->
+  <div id="tab-golfers" class="panel">
+    <div class="status-bar">
+      <span class="status-text" id="status-text2">Fetching live leaderboard…</span>
+      <button class="refresh-btn" onclick="loadLive()">↻ Refresh</button>
+    </div>
+    <div class="card">
+      <table>
+        <thead><tr>
+          <th class="r" style="width:52px;">Pos</th>
+          <th>Golfer</th>
+          <th class="r">Score</th>
+          <th class="r">Thru</th>
+          <th class="r">Pts</th>
+          <th>Owner(s)</th>
+        </tr></thead>
+        <tbody id="golfer-body"><tr><td colspan="6" class="empty">Loading…</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- PAYOUTS -->
+  <div id="tab-payouts" class="panel">
+    <p style="font-size:13px;color:var(--text-light);margin-bottom:1.25rem;">Prize pool distribution for the 2026 East Cobb Masters Pick 4.</p>
+    <div class="payout-grid">
+      <div class="payout-card first">
+        <div>
+          <div class="payout-pos">&#127942; 1st Place</div>
+          <div style="font-size:11px;color:var(--text-light);margin-top:2px;">Winner takes the green jacket money</div>
+        </div>
+        <div class="payout-amt">$80</div>
+      </div>
+      <div class="payout-card second">
+        <div>
+          <div class="payout-pos">&#129352; 2nd Place</div>
+          <div style="font-size:11px;color:var(--text-light);margin-top:2px;">Runner-up payout</div>
+        </div>
+        <div class="payout-amt">$20</div>
+      </div>
+    </div>
+    <div class="card" style="padding:1.25rem;">
+      <p style="font-size:13px;color:var(--text-mid);line-height:1.7;">Total prize pool: <strong>$100</strong>. Points are tallied at the end of the tournament based on each golfer's final official leaderboard position. In the event of a tie on points, the tiebreaker is the highest best-case scenario score.</p>
+    </div>
+  </div>
+
+  <!-- MANUAL ENTRY -->
+  <div id="tab-manual" class="panel">
+    <p style="font-size:13px;color:var(--text-light);margin-bottom:1rem;">Enter each golfer's current leaderboard position. Set to "MC" if they missed the cut. Leave blank if the tournament hasn't started.</p>
+    <div class="manual-grid" id="manual-grid"></div>
+    <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:4px;">
+      <button class="apply-btn" onclick="applyManual()">Apply Scores ↗</button>
+      <button class="refresh-btn" onclick="clearManual()">Clear All</button>
+    </div>
+  </div>
+
+  <!-- RULES -->
+  <div id="tab-rules" class="panel">
+    <p style="font-size:13px;color:var(--text-light);margin-bottom:1rem;">Each player drafts 4 golfers. Points are awarded based on final leaderboard position at Augusta National.</p>
+    <div class="rules-grid">
+      <div class="rule-card"><span class="rule-pos">1st place</span><span class="rule-pts">9</span></div>
+      <div class="rule-card"><span class="rule-pos">2nd place</span><span class="rule-pts">7</span></div>
+      <div class="rule-card"><span class="rule-pos">3rd place</span><span class="rule-pts">6</span></div>
+      <div class="rule-card"><span class="rule-pos">4th – 8th</span><span class="rule-pts">5</span></div>
+      <div class="rule-card"><span class="rule-pos">9th – 15th</span><span class="rule-pts">4</span></div>
+      <div class="rule-card"><span class="rule-pos">16th – 25th</span><span class="rule-pts">3</span></div>
+      <div class="rule-card"><span class="rule-pos">26th – 35th</span><span class="rule-pts">2</span></div>
+      <div class="rule-card"><span class="rule-pos">Made Cut (Top 50)</span><span class="rule-pts">1</span></div>
+      <div class="rule-card"><span class="rule-pos">Missed Cut</span><span class="rule-pts">0</span></div>
+    </div>
+    <p style="font-size:12px;color:var(--text-light);margin-top:1.25rem;">Tiebreaker: higher best-case scenario total wins.</p>
+  </div>
+
+</main>
+
+<footer>2026 East Cobb Masters Pick 4 &nbsp;·&nbsp; A Tradition Like No Other &nbsp;·&nbsp; Augusta National · April 2026</footer>
+
+<script>
+const PICKS = {
+  "Brian":    ["Matt Fitzpatrick","Patrick Reed","JJ Spaun","Adam Scott"],
+  "Jeremy":   ["Tommy Fleetwood","Si Woo Kim","Justin Thomas","Jason Day"],
+  "Cam":      ["Scottie Scheffler","Chris Gotterup","Akshay Bhatia","Ben Griffin"],
+  "Harrison": ["Bryson DeChambeau","Brooks Koepka","Viktor Hovland","Nicolai Hojgaard"],
+  "Jake":     ["Xander Schauffele","Patrick Cantlay","Shane Lowry","Kurt Kitayama"],
+  "Chase":    ["Jon Rahm","Min Woo Lee","Jake Knapp","Sepp Straka"],
+  "Ryan":     ["Justin Rose","Collin Morikawa","Jacob Bridgeman","Cameron Smith"],
+  "Jared":    ["Cameron Young","Hideki Matsuyama","Corey Conners","Sam Burns"],
+  "Cole":     ["Rory McIlroy","Robert MacIntyre","Jordan Spieth","Max Homa"],
+  "Cooper":   ["Ludvig Aberg","Russell Henley","Tyrrell Hatton","Rasmus Hojgaard"]
+};
+
+const ALL_GOLFERS = [...new Set(Object.values(PICKS).flat())];
+let golferData = {};
+ALL_GOLFERS.forEach(g => { golferData[g] = { pos: null, score: null, thru: null, missedCut: false, status: 'TBD' }; });
+
+function posToPoints(pos, missedCut) {
+  if (missedCut || !pos) return 0;
+  if (pos === 1) return 9; if (pos === 2) return 7; if (pos === 3) return 6;
+  if (pos <= 8) return 5; if (pos <= 15) return 4; if (pos <= 25) return 3;
+  if (pos <= 35) return 2; if (pos <= 50) return 1;
+  return 0;
+}
+function posLabel(p) {
+  if (!p) return '—';
+  if (p===1) return '1st'; if (p===2) return '2nd'; if (p===3) return '3rd';
+  return p+'th';
+}
+function fmtScore(s) {
+  if (s===null||s===undefined) return '—';
+  if (s===0) return 'E';
+  return s>0?'+'+s:String(s);
+}
+function scoreClass(s) {
+  if (s===null||s===undefined||s===0) return 'even';
+  return s<0?'under':'over';
+}
+
+async function loadLive() {
+  setStatus('Fetching live scores…');
+  try {
+    const r = await fetch('https://site.api.espn.com/apis/site/v2/sports/golf/pga/scoreboard');
+    if (!r.ok) throw new Error('ESPN unavailable');
+    const d = await r.json();
+    const parsed = parseESPN(d);
+    if (Object.keys(parsed).length > 0) {
+      mergeData(parsed);
+      const t = new Date().toLocaleTimeString();
+      setStatus('Live — updated ' + t);
+      setPill('live','● LIVE');
+      renderAll(); return;
+    }
+  } catch(e) {}
+  setStatus('Live data unavailable — use Manual Entry to enter scores.');
+  setPill('manual','MANUAL MODE');
+  renderAll();
+}
+
+function parseESPN(data) {
+  const result = {};
+  try {
+    for (const ev of (data.events||[])) {
+      for (const c of (ev.competitions?.[0]?.competitors||[])) {
+        const name = c.athlete?.displayName||'';
+        const raw = c.status?.displayValue||'';
+        const mc = raw==='CUT'||raw==='WD'||raw==='DQ';
+        const posRaw = parseInt((c.status?.position?.id||'').replace(/[^0-9]/g,''));
+        const pos = isNaN(posRaw)?null:posRaw;
+        const scoreStr = (c.statistics||[]).find(s=>s.name==='scoreToPar')?.displayValue||null;
+        const scoreNum = scoreStr?(scoreStr==='E'?0:parseInt(scoreStr)):null;
+        const thru = c.status?.thru||null;
+        result[name] = { pos: mc?null:pos, score: scoreNum, thru, missedCut: mc, status: raw };
+      }
+    }
+  } catch(e){}
+  return result;
+}
+
+function mergeData(parsed) {
+  ALL_GOLFERS.forEach(g => {
+    if (parsed[g]) { golferData[g]=parsed[g]; return; }
+    const last = g.split(' ').slice(-1)[0].toLowerCase();
+    const first = g.split(' ')[0].toLowerCase();
+    const match = Object.keys(parsed).find(k =>
+      k.toLowerCase().includes(last) || k.toLowerCase().includes(first)
+    );
+    if (match) golferData[g]=parsed[match];
+  });
+}
+
+function setStatus(msg) {
+  document.getElementById('status-text').textContent = msg;
+  document.getElementById('status-text2').textContent = msg;
+}
+function setPill(type, txt) {
+  const p = document.getElementById('live-pill');
+  p.className = 'live-pill '+type;
+  document.getElementById('pill-text').textContent = txt;
+}
+
+function calcRow(player, picks) {
+  let pts=0, bestCase=0;
+  const pickInfo = picks.map(g => {
+    const d = golferData[g]||{};
+    const p = posToPoints(d.pos, d.missedCut);
+    const bc = d.missedCut?0:(d.pos?posToPoints(d.pos,false):9);
+    pts+=p; bestCase+=bc;
+    return {name:g, pos:d.pos, missedCut:d.missedCut, pts:p, bc};
+  });
+  return {player, pts, bestCase, picks:pickInfo};
+}
+
+function renderAll() { renderStandings(); renderGolfers(); }
+
+function renderStandings() {
+  const rows = Object.entries(PICKS)
+    .map(([p,picks]) => calcRow(p,picks))
+    .sort((a,b) => b.pts-a.pts || b.bestCase-a.bestCase);
+
+  const groups = [
+    { key:'leaders',  label:'🏆 Leaders',         cls:'group-leaders',  slice: rows.slice(0,3) },
+    { key:'chase1',   label:'⚡ Chase Group 1',    cls:'group-chase1',   slice: rows.slice(3,5) },
+    { key:'chase2',   label:'🎯 Chase Group 2',    cls:'group-chase2',   slice: rows.slice(5,7) },
+    { key:'pack',     label:'🌿 Rest of the Pack', cls:'group-pack',     slice: rows.slice(7)   },
+  ];
+
+  let html = '';
+  let rank = 1;
+  groups.forEach(g => {
+    if (!g.slice.length) return;
+    html += '<div class="card '+g.cls+'">';
+    html += '<div class="group-label">'+g.label+'</div>';
+    html += '<table><thead><tr>';
+    html += '<th style="width:36px;">#</th><th>Player</th><th>Picks</th>';
+    html += '<th class="r">Pts</th><th class="r">Best</th>';
+    html += '</tr></thead><tbody>';
+    g.slice.forEach(r => {
+      const rClass = rank===1?'rank-1':rank===2?'rank-2':rank===3?'rank-3':'';
+      const chips = r.picks.map(p => {
+        const cls = p.missedCut?'chip chip-mc':(p.pos?'chip chip-active':'chip chip-pending');
+        const last = p.name.split(' ').slice(-1)[0];
+        const info = p.pos?posLabel(p.pos)+' · '+p.pts+'pt':'—';
+        return '<span class="'+cls+'">'+last+' <span style="opacity:0.65">'+info+'</span></span>';
+      }).join('');
+      html += '<tr>';
+      html += '<td class="rank-num '+rClass+'" style="text-align:right;padding-right:10px;">'+rank+'</td>';
+      html += '<td class="player-name">'+r.player+'</td>';
+      html += '<td><div style="display:flex;flex-wrap:wrap;">'+chips+'</div></td>';
+      html += '<td class="r"><span class="pts-val">'+r.pts+'</span></td>';
+      html += '<td class="r"><span class="bc-val">'+r.bestCase+'</span></td>';
+      html += '</tr>';
+      rank++;
+    });
+    html += '</tbody></table></div>';
+  });
+  document.getElementById('standings-groups').innerHTML = html;
+}
+
+function renderGolfers() {
+  const rows = ALL_GOLFERS.map(g => {
+    const d = golferData[g]||{};
+    const pts = posToPoints(d.pos, d.missedCut);
+    const owners = Object.entries(PICKS).filter(([,ps])=>ps.includes(g)).map(([p])=>p);
+    return {name:g, pos:d.pos||9999, score:d.score, thru:d.thru, missedCut:d.missedCut, pts, owners};
+  }).sort((a,b)=>a.pos-b.pos);
+
+  document.getElementById('golfer-body').innerHTML = rows.map(r => {
+    const posTxt = r.missedCut
+      ? '<span class="mc-badge">MC</span>'
+      : (r.pos<9999?'<span class="pos-badge">'+posLabel(r.pos)+'</span>':'<span style="color:var(--text-light)">—</span>');
+    const sc = r.score!==null&&r.score!==undefined
+      ? '<span class="'+scoreClass(r.score)+'">'+fmtScore(r.score)+'</span>' : '—';
+    const thru = r.thru||'—';
+    return '<tr><td class="r">'+posTxt+'</td><td>'+r.name+'</td><td class="r">'+sc+'</td><td class="r" style="font-size:12px;color:var(--text-light)">'+thru+'</td><td class="r" style="font-weight:600;color:var(--green);">'+r.pts+'</td><td style="font-size:12px;color:var(--text-light);">'+r.owners.join(', ')+'</td></tr>';
+  }).join('');
+}
+
+function buildManualGrid() {
+  const grid = document.getElementById('manual-grid');
+  grid.innerHTML = ALL_GOLFERS.map((g,i) =>
+    '<div class="manual-row"><label title="'+g+'">'+g+'</label>' +
+    '<input type="number" id="mp_'+i+'" min="1" max="200" placeholder="Pos">' +
+    '<select id="ms_'+i+'"><option value="active">Active</option><option value="mc">MC</option></select>' +
+    '</div>'
+  ).join('');
+  ALL_GOLFERS.forEach((g,i) => {
+    const d = golferData[g];
+    if (d&&d.pos) document.getElementById('mp_'+i).value = d.pos;
+    if (d&&d.missedCut) document.getElementById('ms_'+i).value = 'mc';
+  });
+}
+
+function applyManual() {
+  ALL_GOLFERS.forEach((g,i) => {
+    const posVal = parseInt(document.getElementById('mp_'+i).value);
+    const mc = document.getElementById('ms_'+i).value === 'mc';
+    golferData[g] = { pos: isNaN(posVal)?null:posVal, score:null, thru:null, missedCut:mc, status: mc?'CUT':(isNaN(posVal)?'TBD':'Active') };
+  });
+  setStatus('Manual scores applied.');
+  setPill('manual','MANUAL MODE');
+  renderAll();
+  showTab('standings', document.querySelectorAll('.tab-btn')[0]);
+}
+
+function clearManual() {
+  ALL_GOLFERS.forEach((_,i) => {
+    document.getElementById('mp_'+i).value='';
+    document.getElementById('ms_'+i).value='active';
+  });
+}
+
+function showTab(name, btn) {
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(t=>t.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  if(btn) btn.classList.add('active');
+  if(name==='manual') buildManualGrid();
+}
+
+loadLive();
+setInterval(loadLive, 60000);
+</script>
+</body>
+</html>
