@@ -383,7 +383,7 @@ function setPill(type, txt) {
 }
 
 function calcRow(player, picks) {
-  let pts=0, bestCase=0;
+  let pts=-1, bestCase=-1;
   const pickInfo = picks.map(g => {
     const d = golferData[g]||{};
     const p = posToPoints(d.pos, d.missedCut);
