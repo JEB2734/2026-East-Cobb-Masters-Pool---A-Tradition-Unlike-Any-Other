@@ -387,7 +387,7 @@ function calcRow(player, picks) {
   const pickInfo = picks.map(g => {
     const d = golferData[g]||{};
     const p = posToPoints(d.pos, d.missedCut);
-    const bc = d.missedCut?-1:(d.pos?posToPoints(d.pos,false):9);
+    const bc = d.missedCut?0:(d.pos?posToPoints(d.pos,false):9);
     pts+=p; bestCase+=bc;
     return {name:g, pos:d.pos, missedCut:d.missedCut, pts:p, bc};
   });
