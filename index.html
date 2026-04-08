@@ -299,7 +299,7 @@ let golferData = {};
 ALL_GOLFERS.forEach(g => { golferData[g] = { pos: null, score: null, thru: null, missedCut: false, status: 'TBD' }; });
 
 function posToPoints(pos, missedCut) {
-  if (missedCut || !pos) return 0;
+  if (missedCut || !pos) return -1;
   if (pos === 1) return 9; if (pos === 2) return 7; if (pos === 3) return 6;
   if (pos <= 8) return 5; if (pos <= 15) return 4; if (pos <= 25) return 3;
   if (pos <= 35) return 2; if (pos <= 50) return 1;
