@@ -321,6 +321,7 @@ function scoreClass(s) {
 }
 
 async function loadLive() {
+ if (manualMode) return;
   setStatus('Fetching live scores…');
   try {
     const r = await fetch('https://site.api.espn.com/apis/site/v2/sports/golf/pga/scoreboard');
