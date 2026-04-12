@@ -482,6 +482,8 @@ function applyManual() {
     golferData[g] = { pos: isNaN(posVal)?null:posVal, score:null, thru:null, missedCut:mc, status: mc?'CUT':(isNaN(posVal)?'TBD':'Active') };
   });
   manualMode = true;
+  localStorage.setItem('savedScores', JSON.stringify(golferData));
+  localStorage.setItem('manualMode', 'true');
   setStatus('Manual scores applied.');
   setPill('manual','MANUAL MODE');
   renderAll();
