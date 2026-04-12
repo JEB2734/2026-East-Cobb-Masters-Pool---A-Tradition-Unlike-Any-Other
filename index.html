@@ -521,8 +521,26 @@ if (_saved && _manual === 'true') {
   setPill('manual','MANUAL MODE');
   renderAll();
 } else {
+ const urlParams = new URLSearchParams(window.location.search);
+const savedScores = urlParams.get('scores');
+if (savedScores) {
+  try {
+    const data = JSON.parse(atob(savedScores));
+    ALL_GOLFERS.forEach((g,i) => {
+      const val = data[i];
+      const mc = val === 'MC';
+      const pos = mc ? null : (val === '' ? null : parseInt(val));
+      golferData[g] = { pos, score:null, thru:null, missedCut:mc, status: mc?'CUT':(pos?'Active':'TBD') };
+    });
+    manualMode = true;
+    setStatus('Scores restored.');
+    setPill('manual','MANUAL MODE');
+    renderAll();
+  } catch(e) { loadLive(); }
+} else {
   loadLive();
 }
+setInterval(loadLive, 60000);
 setInterval(loadLive, 60000);
 </script>
 </body>
