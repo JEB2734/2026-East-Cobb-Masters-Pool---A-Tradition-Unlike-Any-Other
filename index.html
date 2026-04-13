@@ -459,8 +459,8 @@ function buildManualGrid() {
   if (d&&d.score!==null&&d.score!==undefined) document.getElementById('msc_'+i).value = d.score;
   if (d&&d.thru) document.getElementById('mth_'+i).value = d.thru;
   if (d&&d.missedCut) document.getElementById('ms_'+i).value = 'mc';
-});
-
+  });
+}
 function applyManual() {
   ALL_GOLFERS.forEach((g,i) => {
     const posVal = parseInt(document.getElementById('mp_'+i).value);
