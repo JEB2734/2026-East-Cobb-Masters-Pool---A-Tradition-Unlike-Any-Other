@@ -513,34 +513,13 @@ function showTab(name, btn) {
   if(name==='manual') buildManualGrid();
 }
 
-const _saved = localStorage.getItem('savedScores');
-const _manual = localStorage.getItem('manualMode');
-if (_saved && _manual === 'true') {
-  golferData = JSON.parse(_saved);
-  manualMode = true;
-  setStatus('Manual scores restored.');
+const saved = localStorage.getItem('savedScores');
+if (saved) {
+  golferData = JSON.parse(saved);
+  setStatus('Scores loaded.');
   setPill('manual','MANUAL MODE');
-  renderAll();
-} else {
- const urlParams = new URLSearchParams(window.location.search);
-const savedScores = urlParams.get('scores');
-if (savedScores) {
-  try {
-    const data = JSON.parse(atob(savedScores));
-    ALL_GOLFERS.forEach((g,i) => {
-      const val = data[i];
-      const mc = val === 'MC';
-      const pos = mc ? null : (val === '' ? null : parseInt(val));
-      golferData[g] = { pos, score:null, thru:null, missedCut:mc, status: mc?'CUT':(pos?'Active':'TBD') };
-    });
-    manualMode = true;
-    setStatus('Scores restored.');
-    setPill('manual','MANUAL MODE');
-    renderAll();
-  } catch(e) { loadLive(); }
-} else {
-  renderAll();
 }
+renderAll();
 </script>
 </body>
 </html>
