@@ -543,15 +543,8 @@ function showTab(name, btn) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-  const saved = localStorage.getItem('savedScores');
-  if (saved) {
-    golferData = JSON.parse(saved);
-    setStatus('Final Standings.');
-    setPill('manual','Final Standings');
-  } else {
-    setStatus('Use Manual Entry to enter scores.');
-    setPill('manual','Final Standings');
-  }
+  setStatus('2026 Masters — Final Results');
+  setPill('manual','FINAL STANDINGS');
   renderAll();
 });
 </script>
