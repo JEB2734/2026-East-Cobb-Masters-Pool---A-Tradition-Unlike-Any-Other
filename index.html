@@ -296,7 +296,53 @@ const PICKS = {
 
 const ALL_GOLFERS = [...new Set(Object.values(PICKS).flat())];
 let golferData = {}; let manualMode = false;
-ALL_GOLFERS.forEach(g => { golferData[g] = { pos: null, score: null, thru: null, missedCut: false, status: 'TBD' }; });
+const FINAL = {
+  "Rory McIlroy":      { pos:1,  score:-12, thru:"F", missedCut:false },
+  "Scottie Scheffler": { pos:2,  score:-11, thru:"F", missedCut:false },
+  "Justin Rose":       { pos:3,  score:-10, thru:"F", missedCut:false },
+  "Cameron Young":     { pos:3,  score:-10, thru:"F", missedCut:false },
+  "Russell Henley":    { pos:3,  score:-10, thru:"F", missedCut:false },
+  "Tyrrell Hatton":    { pos:3,  score:-10, thru:"F", missedCut:false },
+  "Collin Morikawa":   { pos:7,  score:-9,  thru:"F", missedCut:false },
+  "Sam Burns":         { pos:7,  score:-9,  thru:"F", missedCut:false },
+  "Xander Schauffele": { pos:9,  score:-8,  thru:"F", missedCut:false },
+  "Max Homa":          { pos:9,  score:-8,  thru:"F", missedCut:false },
+  "Jake Knapp":        { pos:11, score:-7,  thru:"F", missedCut:false },
+  "Patrick Reed":      { pos:12, score:-5,  thru:"F", missedCut:false },
+  "Jason Day":         { pos:12, score:-5,  thru:"F", missedCut:false },
+  "Brooks Koepka":     { pos:12, score:-5,  thru:"F", missedCut:false },
+  "Patrick Cantlay":   { pos:12, score:-5,  thru:"F", missedCut:false },
+  "Hideki Matsuyama":  { pos:12, score:-5,  thru:"F", missedCut:false },
+  "Jordan Spieth":     { pos:12, score:-5,  thru:"F", missedCut:false },
+  "Matt Fitzpatrick":  { pos:18, score:-4,  thru:"F", missedCut:false },
+  "Viktor Hovland":    { pos:18, score:-4,  thru:"F", missedCut:false },
+  "Ludvig Aberg":      { pos:21, score:-3,  thru:"F", missedCut:false },
+  "Adam Scott":        { pos:24, score:-2,  thru:"F", missedCut:false },
+  "Chris Gotterup":    { pos:24, score:-2,  thru:"F", missedCut:false },
+  "Shane Lowry":       { pos:30, score:-1,  thru:"F", missedCut:false },
+  "Tommy Fleetwood":   { pos:33, score:0,   thru:"F", missedCut:false },
+  "Ben Griffin":       { pos:33, score:0,   thru:"F", missedCut:false },
+  "Jon Rahm":          { pos:38, score:1,   thru:"F", missedCut:false },
+  "Justin Thomas":     { pos:41, score:2,   thru:"F", missedCut:false },
+  "Sepp Straka":       { pos:41, score:2,   thru:"F", missedCut:false },
+  "Jacob Bridgeman":   { pos:41, score:2,   thru:"F", missedCut:false },
+  "Si Woo Kim":        { pos:47, score:4,   thru:"F", missedCut:false },
+  "Corey Conners":     { pos:49, score:6,   thru:"F", missedCut:false },
+  "Kurt Kitayama":     { pos:51, score:7,   thru:"F", missedCut:false },
+  "Rasmus Hojgaard":   { pos:53, score:10,  thru:"F", missedCut:false },
+  "JJ Spaun":          { pos:null, score:5, thru:"36", missedCut:true },
+  "Akshay Bhatia":     { pos:null, score:5, thru:"36", missedCut:true },
+  "Bryson DeChambeau": { pos:null, score:6, thru:"36", missedCut:true },
+  "Nicolai Hojgaard":  { pos:null, score:6, thru:"36", missedCut:true },
+  "Min Woo Lee":       { pos:null, score:11,thru:"36", missedCut:true },
+  "Cameron Smith":     { pos:null, score:7, thru:"36", missedCut:true },
+  "Robert MacIntyre":  { pos:null, score:7, thru:"36", missedCut:true },
+};
+ALL_GOLFERS.forEach(g => {
+  const f = FINAL[g];
+  golferData[g] = f ? { pos:f.pos, score:f.score, thru:f.thru, missedCut:f.missedCut, status:f.missedCut?'CUT':'Final' }
+                    : { pos:null, score:null, thru:null, missedCut:false, status:'TBD' };
+});
 
 function posToPoints(pos, missedCut) {
   if (missedCut) return -1; if (!pos) return 0;
