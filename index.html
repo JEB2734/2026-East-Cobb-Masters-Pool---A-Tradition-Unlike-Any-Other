@@ -469,6 +469,7 @@ function applyManual() {
 const thruVal = document.getElementById('mth_'+i).value.trim();
   }
 golferData[g] = { pos: isNaN(posVal)?null:posVal, score:isNaN(scoreVal)?null:scoreVal, thru:thruVal||null, missedCut:mc, status: mc?'CUT':(isNaN(posVal)?'TBD':'Active') };
+  });
   manualMode = true;
   localStorage.setItem('savedScores', JSON.stringify(golferData));
   setStatus('Scores saved.');
