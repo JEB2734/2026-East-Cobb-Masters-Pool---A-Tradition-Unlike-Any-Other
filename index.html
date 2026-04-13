@@ -302,7 +302,7 @@ function posToPoints(pos, missedCut) {
   if (missedCut) return -1; if (!pos) return 0;
   if (pos === 1) return 9; if (pos === 2) return 7; if (pos === 3) return 6;
   if (pos <= 8) return 5; if (pos <= 15) return 4; if (pos <= 25) return 3;
-  if (pos <= 35) return 2; if (pos <= 50) return 1;
+  if (pos <= 35) return 2; if (pos <= 55) return 1;
   return 0;
 }
 function posLabel(p) {
