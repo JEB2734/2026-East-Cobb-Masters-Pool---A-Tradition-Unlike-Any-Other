@@ -490,27 +490,24 @@ function renderGolfers() {
   }).join('');
 }
 
-<script>
 function buildManualGrid() {
   const grid = document.getElementById('manual-grid');
   grid.innerHTML = ALL_GOLFERS.map((g,i) =>
     '<div class="manual-row"><label title="'+g+'">'+g+'</label>' +
-    '<input type="number" id="mp_'+i+'" min="1" max="200" placeholder="Pos" disabled>' +
-    '<input type="text" id="msc_'+i+'" placeholder="Score" disabled style="width:55px;font-family:DM Sans,sans-serif;font-size:13px;padding:3px 6px;border:1px solid var(--border);border-radius:5px;background:var(--cream);color:var(--text-dark);text-align:center;">' +
-    '<input type="text" id="mth_'+i+'" placeholder="Thru" disabled style="width:44px;font-family:DM Sans,sans-serif;font-size:13px;padding:3px 6px;border:1px solid var(--border);border-radius:5px;background:var(--cream);color:var(--text-dark);text-align:center;">' +
-    '<select id="ms_'+i+'" disabled><option value="active">Active</option><option value="mc">MC</option></select>' +
+    '<input type="number" id="mp_'+i+'" min="1" max="200" placeholder="Pos">' +
+    '<input type="text" id="msc_'+i+'" placeholder="Score" style="width:55px;font-family:DM Sans,sans-serif;font-size:13px;padding:3px 6px;border:1px solid var(--border);border-radius:5px;background:var(--cream);color:var(--text-dark);text-align:center;">' +
+    '<input type="text" id="mth_'+i+'" placeholder="Thru" style="width:44px;font-family:DM Sans,sans-serif;font-size:13px;padding:3px 6px;border:1px solid var(--border);border-radius:5px;background:var(--cream);color:var(--text-dark);text-align:center;">' +
+    '<select id="ms_'+i+'"><option value="active">Active</option><option value="mc">MC</option></select>' +
     '</div>'
   ).join('');
-
   ALL_GOLFERS.forEach((g,i) => {
     const d = golferData[g];
-    if (d && d.pos) document.getElementById('mp_'+i).value = d.pos;
-    if (d && d.score !== null && d.score !== undefined) document.getElementById('msc_'+i).value = d.score === 0 ? 'E' : d.score;
-    if (d && d.thru) document.getElementById('mth_'+i).value = d.thru;
-    if (d && d.missedCut) document.getElementById('ms_'+i).value = 'mc';
+    if (d&&d.pos) document.getElementById('mp_'+i).value = d.pos;
+    if (d&&d.score!==null&&d.score!==undefined) document.getElementById('msc_'+i).value = d.score;
+    if (d&&d.thru) document.getElementById('mth_'+i).value = d.thru;
+    if (d&&d.missedCut) document.getElementById('ms_'+i).value = 'mc';
   });
 }
-</script>
 
 function applyManual() {
   ALL_GOLFERS.forEach((g,i) => {
