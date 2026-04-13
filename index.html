@@ -464,8 +464,9 @@ function applyManual() {
   ALL_GOLFERS.forEach((g,i) => {
     const posVal = parseInt(document.getElementById('mp_'+i).value);
     const mc = document.getElementById('ms_'+i).value === 'mc';
-    golferData[g] = { pos: isNaN(posVal)?null:posVal, score:null, thru:null, missedCut:mc, status: mc?'CUT':(isNaN(posVal)?'TBD':'Active') };
-  });
+    const scoreVal = parseInt(document.getElementById('msc_'+i).value);
+const thruVal = document.getElementById('mth_'+i).value.trim();
+golferData[g] = { pos: isNaN(posVal)?null:posVal, score:isNaN(scoreVal)?null:scoreVal, thru:thruVal||null, missedCut:mc, status: mc?'CUT':(isNaN(posVal)?'TBD':'Active') };
   manualMode = true;
   localStorage.setItem('savedScores', JSON.stringify(golferData));
   setStatus('Scores saved.');
