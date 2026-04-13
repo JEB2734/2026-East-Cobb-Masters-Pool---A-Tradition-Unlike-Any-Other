@@ -491,13 +491,18 @@ function showTab(name, btn) {
   if(name==='manual') buildManualGrid();
 }
 
-const saved = localStorage.getItem('savedScores');
-if (saved) {
-  golferData = JSON.parse(saved);
-  setStatus('Scores loaded.');
-  setPill('manual','MANUAL MODE');
-}
-renderAll();
+document.addEventListener('DOMContentLoaded', function() {
+  const saved = localStorage.getItem('savedScores');
+  if (saved) {
+    golferData = JSON.parse(saved);
+    setStatus('Scores loaded.');
+    setPill('manual','MANUAL MODE');
+  } else {
+    setStatus('Use Manual Entry to enter scores.');
+    setPill('manual','MANUAL MODE');
+  }
+  renderAll();
+});
 </script>
 </body>
 </html>
