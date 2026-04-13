@@ -452,6 +452,7 @@ function buildManualGrid() {
     '<select id="ms_'+i+'"><option value="active">Active</option><option value="mc">MC</option></select>' +
     '</div>'
   ).join('');
+}
   ALL_GOLFERS.forEach((g,i) => {
   const d = golferData[g];
   if (d&&d.pos) document.getElementById('mp_'+i).value = d.pos;
