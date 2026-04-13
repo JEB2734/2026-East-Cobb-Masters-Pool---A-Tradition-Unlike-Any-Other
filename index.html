@@ -490,6 +490,7 @@ function applyManual() {
   });
   const encoded = btoa(JSON.stringify(data));
   history.replaceState(null, '', '?scores=' + encoded);
+  manualMode = true;
   setStatus('Manual scores applied.');
   setPill('manual','MANUAL MODE');
   renderAll();
