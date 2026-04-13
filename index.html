@@ -472,6 +472,11 @@ function applyManual() {
   renderAll();
   showTab('standings', document.querySelectorAll('.tab-btn')[0]);
 }
+function clearManual() {
+  ALL_GOLFERS.forEach((_,i) => {
+    document.getElementById('mp_'+i).value='';
+    document.getElementById('ms_'+i).value='active';
+  });
   localStorage.removeItem('savedScores');
   localStorage.removeItem('manualMode');
 }
