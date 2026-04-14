@@ -482,7 +482,12 @@ function renderGolfers() {
     const pts = posToPoints(d.pos, d.missedCut);
     const owners = Object.entries(PICKS).filter(([,ps])=>ps.includes(g)).map(([p])=>p);
     return {name:g, pos:d.pos||9999, score:d.score, thru:d.thru, missedCut:d.missedCut, pts, owners};
-  }).sort((a,b)=>a.pos-b.pos);
+}).sort((a,b)=>{
+  if (a.missedCut && b.missedCut) return a.score-b.score;
+  if (a.missedCut) return 1;
+  if (b.missedCut) return -1;
+  return a.pos-b.pos;
+});
 
   document.getElementById('golfer-body').innerHTML = rows.map(r => {
     const posTxt = r.missedCut
